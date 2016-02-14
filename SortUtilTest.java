@@ -9,9 +9,6 @@ import org.junit.Test;
 
 public class SortUtilTest {
 	
-	public static void main(String[] args) {
-		
-	}
 	private class AlgorithmComparator implements Comparator<String> {
 		@Override
 		public int compare(String leftString, String rightString){
@@ -26,7 +23,7 @@ public class SortUtilTest {
 
 	@Test
 	public void testQuicksort() {
-		ArrayList<String> testCase = new ArrayList<String>();
+		ArrayList<String> testCase = new ArrayList();
 		
 		testCase.add("a");
 		testCase.add("c");
@@ -35,20 +32,14 @@ public class SortUtilTest {
 		testCase.add("h");
 		testCase.add("b");
 		
-		ArrayList<String> testCaseCorrect = new ArrayList<String>();
+		ArrayList<String> testCaseCorrect = new ArrayList();
 		testCaseCorrect.add("a");
 		testCaseCorrect.add("b");
 		testCaseCorrect.add("c");
 		testCaseCorrect.add("d");
 		testCaseCorrect.add("h");
 		testCaseCorrect.add("t");
-<<<<<<< HEAD
 		SortUtil.quicksort(testCase, new AlgorithmComparator());
-=======
-		
-		
-		SortUtil.mergesort(testCase, new AlgorithmComparator());
->>>>>>> origin/master
 		assertEquals(testCaseCorrect, testCase);
 		
 	}
