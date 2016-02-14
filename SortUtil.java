@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 
-
-
-
-
-
-
 public class SortUtil {
 
 	/**
@@ -28,9 +22,8 @@ public class SortUtil {
 	 */
 	public static <T> void mergesort(ArrayList<T> arrayM, Comparator<? super T> cmp) {
 		
-
-	
-
+		
+		
 	}
 
 	/**
@@ -46,61 +39,45 @@ public class SortUtil {
 	 * @param cmp
 	 */
 	public static <T> void quicksort(ArrayList<T> arr, Comparator<? super T> cmp) {
-		ArrayList<T> arr2 = quickSortRecursive(arr,cmp);
-		arr.add(arr.get(0));
-		//arr = arr2;
 		
-	}
-	
-	public static <T> void quickTest(ArrayList<T> arr, Comparator<? super T> cmp) {
-		arr = quickSortRecursive(arr, cmp);
-	}
 
-	public static <T> ArrayList<T> quickSortRecursive(ArrayList<T> arrayQ, Comparator<? super T> cmp) {
-
-		if (arrayQ.size() <= 1) {
-			return arrayQ;
+		int leftValue = 0;
+		int rightValue = arr.size() -1;
+		quicksortRecursive(arr, leftValue, rightValue, cmp);
+		
 		}
-
-		int mid = arrayQ.size() / 2;
-
-		T pivot = arrayQ.get(mid);
-
-		ArrayList<T> arrLower = new ArrayList();
-		ArrayList<T> arrUpper = new ArrayList();
-
-		for (int i = 0; i < arrayQ.size(); i++) {
-			if (cmp.compare(arrayQ.get(i), pivot) <= 0) {
-				if (i == mid) {
-					continue;
-				}
-				arrLower.add(arrayQ.get(i));
-			} else {
-				arrUpper.add(arrayQ.get(i));
+	
+	public static <T> void quicksortRecursive(ArrayList<T> arrQ, int left, int right, Comparator<? super T> cmp) {
+		
+		int i = left;
+		int j = right;
+		T temp;
+		T pivot = arrQ.get((left+right)/2);
+		
+		while (i <= j) {
+			while (cmp.compare(arrQ.get(i), pivot) < 0) {
+				i++;
 			}
-
+			while (cmp.compare(arrQ.get(j), pivot) > 0) {
+				j--;
+			}
+			if(i <= j) {
+				temp = arrQ.get(i);
+				arrQ.set(i,arrQ.get(j));
+				arrQ.set(j, temp);
+				i++;
+				j--;
+			}
 		}
-		return merge(quickSortRecursive(arrLower, cmp), pivot, quickSortRecursive(arrUpper, cmp));
+		if(left < j) {
+			quicksortRecursive(arrQ, left, j, cmp);
+		}
+		if(i < right) {
+			quicksortRecursive(arrQ, i, right, cmp);
+		}
 	}
 
 	
-
-	private static <T> ArrayList<T> merge(ArrayList<T> lowerList, T pivot, ArrayList<T> upperList) {
-		ArrayList<T> mergeList = new ArrayList<T>();
-
-		for (int i = 0; i < lowerList.size(); i++) {
-			mergeList.add(lowerList.get(i));
-		}
-
-		mergeList.add(pivot);
-
-		for (int i = 0; i < upperList.size(); i++) {
-			mergeList.add(upperList.get(i));
-		}
-
-		return mergeList;
-
-	}
 
 	/**
 	 * This method generates and returns an ArrayList of integers 1 to size in
@@ -134,5 +111,6 @@ public class SortUtil {
 	public static ArrayList<Integer> generateWorstCase(int size) {
 		return null;
 	}
+	
 
 }

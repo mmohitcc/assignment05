@@ -39,10 +39,9 @@ public class SortUtilTest {
 		testCaseCorrect.add("d");
 		testCaseCorrect.add("h");
 		testCaseCorrect.add("t");
-		
-		
-		SortUtil.quickTest(testCase, new AlgorithmComparator());
+		SortUtil.quicksort(testCase, new AlgorithmComparator());
 		assertEquals(testCaseCorrect, testCase);
+		
 	}
 
 	@Test
