@@ -3,7 +3,10 @@ package assignment05;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 public class SortUtil {
 
 	/**
@@ -21,9 +24,51 @@ public class SortUtil {
 	 * @param cmp
 	 */
 	public static <T> void mergesort(ArrayList<T> arrayM, Comparator<? super T> cmp) {
+<<<<<<< HEAD
 		
 		
 		
+=======
+
+	}
+
+	public static <T> ArrayList<T> mergesortRecursive(ArrayList<T> input, Comparator<? super T> cmp) {
+
+		ArrayList<T> less = new ArrayList<T>();
+		ArrayList<T> greater = new ArrayList<T>();
+		int mid = input.size() / 2;
+		T pivot = input.get(mid);
+		if (input.size() == 1) {
+			return input;
+		}
+
+		for (int i = 0; i < mid; i++) {
+			if (cmp.compare(input.get(i), pivot) <= 0) {
+				less.add(input.get(i));
+			} else {
+				greater.add(input.get(i));
+			}
+		}
+
+		return mMerge(mergesortRecursive(less, cmp), pivot, mergesortRecursive(greater, cmp));
+	}
+	
+	private static <T> ArrayList<T> mMerge(ArrayList<T> lowerList, T pivot, ArrayList<T> upperList) {
+		ArrayList<T> mergeList = new ArrayList<T>();
+
+		for (int i = 0; i < lowerList.size(); i++) {
+			mergeList.add(lowerList.get(i));
+		}
+
+		mergeList.add(pivot);
+
+		for (int i = 0; i < upperList.size(); i++) {
+			mergeList.add(upperList.get(i));
+		}
+
+		return mergeList;
+
+>>>>>>> origin/master
 	}
 
 	/**
@@ -39,6 +84,7 @@ public class SortUtil {
 	 * @param cmp
 	 */
 	public static <T> void quicksort(ArrayList<T> arr, Comparator<? super T> cmp) {
+<<<<<<< HEAD
 		
 
 		int leftValue = 0;
@@ -67,10 +113,54 @@ public class SortUtil {
 				arrQ.set(j, temp);
 				i++;
 				j--;
+=======
+		ArrayList<T> arr2 = quickSortRecursive(arr, cmp);
+		arr.add(arr.get(0));
+		// arr = arr2;
+
+	}
+
+	public static <T> void quickTest(ArrayList<T> arr, Comparator<? super T> cmp) {
+		arr = quickSortRecursive(arr, cmp);
+	}
+
+	public static <T> ArrayList<T> quickSortRecursive(ArrayList<T> input, Comparator<? super T> cmp) {
+
+		if (input.size() <= 1) {
+			return input;
+		}
+
+		int mid = input.size() / 2;
+
+		T pivot = input.get(mid);
+
+		ArrayList<T> less = new ArrayList();
+		ArrayList<T> greater = new ArrayList();
+
+		for (int i = 0; i < input.size(); i++) {
+			if (cmp.compare(input.get(i), pivot) <= 0) {
+				if (i == mid) {
+					continue;
+				}
+				less.add(input.get(i));
+			} else {
+				greater.add(input.get(i));
+>>>>>>> origin/master
 			}
 		}
+<<<<<<< HEAD
 		if(left < j) {
 			quicksortRecursive(arrQ, left, j, cmp);
+=======
+		return qMerge(quickSortRecursive(less, cmp), pivot, quickSortRecursive(greater, cmp));
+	}
+
+	private static <T> ArrayList<T> qMerge(ArrayList<T> lowerList, T pivot, ArrayList<T> upperList) {
+		ArrayList<T> mergeList = new ArrayList<T>();
+
+		for (int i = 0; i < lowerList.size(); i++) {
+			mergeList.add(lowerList.get(i));
+>>>>>>> origin/master
 		}
 		if(i < right) {
 			quicksortRecursive(arrQ, i, right, cmp);
