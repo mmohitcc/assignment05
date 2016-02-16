@@ -18,7 +18,7 @@ public class SortUtilTest {
 
 	@Test
 	public void testMergesort() {
-		ArrayList<String> testCase = new ArrayList();
+		ArrayList<String> testCase = new ArrayList<String>();
 
 		testCase.add("a");
 		testCase.add("c");
@@ -27,7 +27,7 @@ public class SortUtilTest {
 		testCase.add("h");
 		testCase.add("b");
 
-		ArrayList<String> testCaseCorrect = new ArrayList();
+		ArrayList<String> testCaseCorrect = new ArrayList<String>();
 		testCaseCorrect.add("a");
 		testCaseCorrect.add("b");
 		testCaseCorrect.add("c");
@@ -63,7 +63,16 @@ public class SortUtilTest {
 
 	@Test
 	public void testGenerateBestCase() {
-		fail("Not yet implemented");
+		ArrayList<String> testCase = new ArrayList<>();
+
+		testCase.add("1");
+		testCase.add("2");
+		testCase.add("3");
+		testCase.add("4");
+		testCase.add("5");
+		testCase.add("6");
+		System.out.print("Best Case (sorted)");
+		System.out.println(SortUtil.generateBestCase((testCase.size())));
 	}
 
 	@Test
@@ -76,12 +85,22 @@ public class SortUtilTest {
 		testCase.add("4");
 		testCase.add("5");
 		testCase.add("6");
+		System.out.print("Average Case (Random)");
 		System.out.println(SortUtil.generateAverageCase(testCase.size()));
 	}
 
 	@Test
 	public void testGenerateWorstCase() {
-		fail("Not yet implemented");
+		ArrayList<String> testCase = new ArrayList<>();
+
+		testCase.add("1");
+		testCase.add("2");
+		testCase.add("3");
+		testCase.add("4");
+		testCase.add("5");
+		testCase.add("6");
+		System.out.print("Worst Case (Reversed)");
+		System.out.println(SortUtil.generateWorstCase(testCase.size()));
 	}
 
 }

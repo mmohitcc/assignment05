@@ -3,7 +3,6 @@ package assignment05;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Random;
 
 public class SortUtil {
 
@@ -158,8 +157,16 @@ public class SortUtil {
 	 * @return
 	 */
 	public static ArrayList<Integer> generateBestCase(int size) {
-
-		return null;
+		ArrayList<Integer> orderedList = new ArrayList<>();
+		for (int i = 1; i <= size; i++) {
+			orderedList.add(i);
+		}
+		
+		for (int j = 0; j < orderedList.size(); j++){
+		
+		}
+		
+		return orderedList;
 	}
 
 	/**
@@ -181,28 +188,7 @@ public class SortUtil {
 		return orderedList;
 	}
 
-	// import java.util.Random;
-	//
-	// public class Shuffle<T> {
-	//
-	// private final Random rnd;
-	//
-	// public Shuffle() {
-	// rnd = new Random();
-	// }
-	//
-	// /**
-	// * Fisher–Yates shuffle.
-	// */
-	// public void shuffle(T[] ar) {
-	// for (int i = ar.length - 1; i > 0; i--) {
-	// int index = rnd.nextInt(i + 1);
-	// T a = ar[index];
-	// ar[index] = ar[i];
-	// ar[i] = a;
-	// }
-	// }
-	// }
+	
 
 	/**
 	 * This method generates and returns an ArrayList of integers 1 to size in
@@ -212,7 +198,14 @@ public class SortUtil {
 	 * @return
 	 */
 	public static ArrayList<Integer> generateWorstCase(int size) {
-		return null;
+		ArrayList<Integer> orderedList = new ArrayList<>();
+
+		
+		for (int i = size; i > 0; i--) {
+			orderedList.add(i);
+		}
+		
+		return orderedList;
+	}
 	}
 
-}
