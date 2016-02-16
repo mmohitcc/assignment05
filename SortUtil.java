@@ -38,6 +38,13 @@ public class SortUtil {
 
 		mergeSort(input, leftValue, middle, cmp);
 		mergeSort(input, middle + 1, rightValue, cmp);
+		merge(input, leftValue, middle, rightValue, cmp);
+		
+
+	}
+	
+	public static <T> void merge(ArrayList<T> input, int leftValue, int middle, int rightValue, Comparator<? super T> cmp) {
+		
 		ArrayList<T> temp = new ArrayList<T>();
 		int l = leftValue;
 		int r = middle + 1;
@@ -60,8 +67,16 @@ public class SortUtil {
 		for (int j = 0; j < temp.size(); j++) {
 			input.set(i++, temp.get(j));
 		}
-
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * This method performs a quicksort on the generic ArrayList given as input.
