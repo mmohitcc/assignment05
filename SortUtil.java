@@ -1,6 +1,5 @@
 package assignment05;
 
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,19 +29,11 @@ public class SortUtil {
 
 	}
 
-<<<<<<< Updated upstream
 	public static <T> void mergeSort(ArrayList<T> input, int leftValue, int rightValue, Comparator<? super T> cmp,
 			ArrayList<T> temp) {
 
 		if (leftValue <= InsertionPoint) {
 			insertionSort(input, cmp);
-=======
-	public static <T> void mergeSort(ArrayList<T> input, int leftValue, int rightValue, Comparator<? super T> cmp) {
-		// If the left value is greater than or equal to the right return the
-		// method
-		
-		if (leftValue >= rightValue) {
->>>>>>> Stashed changes
 			return;
 		}
 
@@ -167,17 +158,8 @@ public class SortUtil {
 	 * @return
 	 */
 	public static ArrayList<Integer> generateBestCase(int size) {
-		ArrayList<Integer> orderedList = new ArrayList<>();
 
-		for (int i = 1; i <= size; i++) {
-			orderedList.add(i);
-		}
-		
-		for (int j = 0; j < orderedList.size(); j++){
-		
-		}
-		
-		return orderedList;
+		return null;
 	}
 
 	/**
@@ -189,7 +171,6 @@ public class SortUtil {
 	 */
 	public static ArrayList<Integer> generateAverageCase(int size) {
 		ArrayList<Integer> orderedList = new ArrayList<>();
-<<<<<<< Updated upstream
 
 		for (int i = size; i > 0; i--) {
 			orderedList.add(i);
@@ -222,16 +203,6 @@ public class SortUtil {
 	// }
 	// }
 	// }
-=======
-		Random rand = new Random();
-
-		for (int i = 0; i < size; i++) {
-			orderedList.add(rand.nextInt(size));
-		}
-
-		return orderedList;
-	}
->>>>>>> Stashed changes
 
 	/**
 	 * This method generates and returns an ArrayList of integers 1 to size in
@@ -241,14 +212,7 @@ public class SortUtil {
 	 * @return
 	 */
 	public static ArrayList<Integer> generateWorstCase(int size) {
-		ArrayList<Integer> orderedList = new ArrayList<>();
-
-		
-		for (int i = size; i > 0; i--) {
-			orderedList.add(i);
-		}
-		
-		return orderedList;
+		return null;
 	}
 
 }

@@ -18,7 +18,7 @@ public class SortUtilTest {
 
 	@Test
 	public void testMergesort() {
-		ArrayList<String> testCase = new ArrayList<>();
+		ArrayList<String> testCase = new ArrayList();
 
 		testCase.add("a");
 		testCase.add("c");
@@ -27,7 +27,7 @@ public class SortUtilTest {
 		testCase.add("h");
 		testCase.add("b");
 
-		ArrayList<String> testCaseCorrect = new ArrayList<>();
+		ArrayList<String> testCaseCorrect = new ArrayList();
 		testCaseCorrect.add("a");
 		testCaseCorrect.add("b");
 		testCaseCorrect.add("c");
@@ -63,44 +63,25 @@ public class SortUtilTest {
 
 	@Test
 	public void testGenerateBestCase() {
-		ArrayList<String> testCase = new ArrayList<>();
-		 
-		testCase.add("11");
-		testCase.add("22");
-		testCase.add("33");
-		testCase.add("44");
-		testCase.add("55");
-		testCase.add("66");
-		System.out.println("This method generates a best Case");
-		System.out.println(SortUtil.generateBestCase(testCase.size()));
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGenerateAverageCase() {
 		ArrayList<String> testCase = new ArrayList<>();
-		 
-		testCase.add("11");
-		testCase.add("22");
-		testCase.add("33");
-		testCase.add("44");
-		testCase.add("55");
-		testCase.add("66");
-		System.out.println("This method generates and average Case");
+
+		testCase.add("1");
+		testCase.add("2");
+		testCase.add("3");
+		testCase.add("4");
+		testCase.add("5");
+		testCase.add("6");
 		System.out.println(SortUtil.generateAverageCase(testCase.size()));
 	}
 
 	@Test
 	public void testGenerateWorstCase() {
-		ArrayList<String> testCase = new ArrayList<>();
-		 
-		testCase.add("11");
-		testCase.add("22");
-		testCase.add("33");
-		testCase.add("44");
-		testCase.add("55");
-		testCase.add("66");
-		System.out.println("This method generates and average Case");
-		System.out.println(SortUtil.generateWorstCase(testCase.size()));
+		fail("Not yet implemented");
 	}
 
 }
