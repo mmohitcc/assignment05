@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class SortUtil {
 
+	public static int InsertionPoint = 7;
+	
 	/**
 	 * This method performs a mergesort on the generic ArrayList given as input.
 	 * 
@@ -30,7 +32,7 @@ public class SortUtil {
 	public static <T> void mergeSort(ArrayList<T> input, int leftValue, int rightValue, Comparator<? super T> cmp,
 			ArrayList<T> temp) {
 
-		if (leftValue <= 7) {
+		if (leftValue <= InsertionPoint) {
 			insertionSort(input, cmp);
 			return;
 		}
