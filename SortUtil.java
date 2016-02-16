@@ -22,39 +22,40 @@ public class SortUtil {
 	 * @param cmp
 	 */
 	public static <T> void mergesort(ArrayList<T> input, Comparator<? super T> cmp) {
-
-		mergeSort(input, 0, input.size() - 1, cmp);
+		ArrayList<T> temp = new ArrayList<T>();
+		mergeSort(input, 0, input.size() - 1, cmp, temp);
 
 	}
 
-	public static <T> void mergeSort(ArrayList<T> input, int leftValue, int rightValue, Comparator<? super T> cmp) {
-		// If the left value is greater than or equal to the right return the
-		// method
-		if (leftValue >= rightValue) {
+	public static <T> void mergeSort(ArrayList<T> input, int leftValue, int rightValue, Comparator<? super T> cmp,
+			ArrayList<T> temp) {
+
+		if (leftValue <= 7) {
+			insertionSort(input, cmp);
 			return;
 		}
 
 		int middle = (leftValue + rightValue) / 2;
 
-		mergeSort(input, leftValue, middle, cmp);
-		mergeSort(input, middle + 1, rightValue, cmp);
-		merge(input, leftValue, middle, rightValue, cmp);
-		
+		mergeSort(input, leftValue, middle, cmp, temp);
+		mergeSort(input, middle + 1, rightValue, cmp, temp);
+		merge(input, leftValue, middle, rightValue, cmp, temp);
 
 	}
-	
-	public static <T> void merge(ArrayList<T> input, int leftValue, int middle, int rightValue, Comparator<? super T> cmp) {
-		
-		ArrayList<T> temp = new ArrayList<T>();
+
+	public static <T> void merge(ArrayList<T> input, int leftValue, int middle, int rightValue, Comparator<? super T> cmp, ArrayList<T> temp) {
+
 		int l = leftValue;
 		int r = middle + 1;
 		int i = 0;
 
 		while (l <= middle && r <= rightValue) {
 			if (cmp.compare(input.get(l), input.get(r)) <= 0) {
-				temp.add(input.get(l++));
+				// temp.add(input.get(l++))
+				temp.set(leftValue, input.get(l++));
 			} else {
-				temp.add(input.get(r++));
+				// temp.add(input.get(r++))
+				temp.set(l, input.get(r++));
 			}
 		}
 		while (l <= middle) {
@@ -67,16 +68,27 @@ public class SortUtil {
 		for (int j = 0; j < temp.size(); j++) {
 			input.set(i++, temp.get(j));
 		}
-		
-		
+		// temp.clear();
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	/*
+	 * Insertion Sort
+	 * 
+	 * 
+	 * 
+	 */
+	public static <T> void insertionSort(ArrayList<T> arr, Comparator<? super T> c) {
+		T temp;
+		for (int i = 1; i < arr.size(); i++) {
+			int j = i;
+			while (j > 0 && c.compare(arr.get(j - 1), arr.get(j)) > 0) {
+				temp = arr.get(j);
+				arr.set(j, arr.get(j - 1));
+				arr.set(j - 1, temp);
+				j--;
+			}
+		}
+	}
 
 	/**
 	 * This method performs a quicksort on the generic ArrayList given as input.
@@ -157,43 +169,38 @@ public class SortUtil {
 	 */
 	public static ArrayList<Integer> generateAverageCase(int size) {
 		ArrayList<Integer> orderedList = new ArrayList<>();
-		
-		for (int i = size; i > 0; i--){
+
+		for (int i = size; i > 0; i--) {
 			orderedList.add(i);
 		}
-		
+
 		Collections.shuffle(orderedList);
-		
-		
+
 		return orderedList;
-		}
-	
-		
-		
-		
-//		import java.util.Random;
-//
-//		public class Shuffle<T> {
-//
-//		    private final Random rnd;
-//
-//		    public Shuffle() {
-//		        rnd = new Random();
-//		    }
-//
-//		    /**
-//		     * Fisher–Yates shuffle.
-//		     */
-//		    public void shuffle(T[] ar) {
-//		        for (int i = ar.length - 1; i > 0; i--) {
-//		            int index = rnd.nextInt(i + 1);
-//		            T a = ar[index];
-//		            ar[index] = ar[i];
-//		            ar[i] = a;
-//		        }
-//		    }
-//		}
-	
+	}
+
+	// import java.util.Random;
+	//
+	// public class Shuffle<T> {
+	//
+	// private final Random rnd;
+	//
+	// public Shuffle() {
+	// rnd = new Random();
+	// }
+	//
+	// /**
+	// * Fisher–Yates shuffle.
+	// */
+	// public void shuffle(T[] ar) {
+	// for (int i = ar.length - 1; i > 0; i--) {
+	// int index = rnd.nextInt(i + 1);
+	// T a = ar[index];
+	// ar[index] = ar[i];
+	// ar[i] = a;
+	// }
+	// }
+	// }
 
 	/**
 	 * This method generates and returns an ArrayList of integers 1 to size in
