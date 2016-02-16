@@ -3,6 +3,7 @@ package assignment05;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
 public class SortUtil {
 
@@ -157,6 +158,7 @@ public class SortUtil {
 	 * @return
 	 */
 	public static ArrayList<Integer> generateBestCase(int size) {
+		
 		ArrayList<Integer> orderedList = new ArrayList<>();
 		for (int i = 1; i <= size; i++) {
 			orderedList.add(i);
@@ -177,15 +179,15 @@ public class SortUtil {
 	 * @return
 	 */
 	public static ArrayList<Integer> generateAverageCase(int size) {
-		ArrayList<Integer> orderedList = new ArrayList<>();
-
+		ArrayList<Integer> randomList = new ArrayList<>();
+		Random rand = new Random();
 		for (int i = size; i > 0; i--) {
-			orderedList.add(i);
+			randomList.add(rand.nextInt(size));
 		}
 
-		Collections.shuffle(orderedList);
+		
 
-		return orderedList;
+		return randomList;
 	}
 
 	
@@ -198,14 +200,14 @@ public class SortUtil {
 	 * @return
 	 */
 	public static ArrayList<Integer> generateWorstCase(int size) {
-		ArrayList<Integer> orderedList = new ArrayList<>();
+		ArrayList<Integer> worstCaseList = new ArrayList<>();
 
 		
 		for (int i = size; i > 0; i--) {
-			orderedList.add(i);
+			worstCaseList.add(i);
 		}
 		
-		return orderedList;
+		return worstCaseList;
 	}
 	}
 
