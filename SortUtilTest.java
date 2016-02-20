@@ -1,3 +1,11 @@
+/*SortUtil Class Junit tester, tests implementations of Mergesort and quicksort from SortUtil Class
+ * 
+ * Authors: Mohit Chaudhary, Moses Manning
+ * 
+ * Last Update: 2/18/16
+ * 
+ */
+
 package assignment05;
 
 import static org.junit.Assert.*;
@@ -39,7 +47,6 @@ public class SortUtilTest {
 		SortUtil.mergesort(testCase, new AlgorithmComparator());
 		assertEquals(testCaseCorrect, testCase);
 	}
-	
 	
 	@Test
 	public void testMergeSortBiggerN() {
@@ -158,40 +165,40 @@ public class SortUtilTest {
 		testCase.add(4);
 		testCase.add(5);
 		testCase.add(6);
-		ArrayList<Integer> testCaseBest = new ArrayList<Integer>(testCase.size());
-		
+
 		assertEquals(testCase, SortUtil.generateBestCase(testCase.size()));
-		System.out.print("Best Case (sorted)");
-		System.out.println(SortUtil.generateBestCase((testCase.size())));
+		
 		
 	}
 
 	@Test
 	public void testGenerateAverageCase() {
-		ArrayList<String> testCase = new ArrayList<>();
+		ArrayList<Integer> testCase = new ArrayList<>();
 
-		testCase.add("1");
-		testCase.add("2");
-		testCase.add("3");
-		testCase.add("4");
-		testCase.add("5");
-		testCase.add("6");
-		System.out.print("Average Case (Random)");
-		System.out.println(SortUtil.generateAverageCase(testCase.size()));
+		testCase.add(1);
+		testCase.add(2);
+		testCase.add(3);
+		testCase.add(4);
+		testCase.add(5);
+		testCase.add(6);
+		
+		assertNotSame(testCase, SortUtil.generateAverageCase(testCase.size()));
+		
 	}
 
 	@Test
 	public void testGenerateWorstCase() {
-		ArrayList<String> testCase = new ArrayList<>();
+		ArrayList<Integer> testCase = new ArrayList<>();
 
-		testCase.add("1");
-		testCase.add("2");
-		testCase.add("3");
-		testCase.add("4");
-		testCase.add("5");
-		testCase.add("6");
-		System.out.print("Worst Case (Reversed)");
-		System.out.println(SortUtil.generateWorstCase(testCase.size()));
+		testCase.add(6);
+		testCase.add(5);
+		testCase.add(4);
+		testCase.add(3);
+		testCase.add(2);
+		testCase.add(1);
+		
+		assertEquals(testCase, SortUtil.generateWorstCase(testCase.size()));
+		
 	}
 
 }

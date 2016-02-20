@@ -1,3 +1,11 @@
+/*SortUtil Class, implements Mergesort and quicksort
+ * 
+ * Authors: Mohit Chaudhary, Moses Manning
+ * 
+ * Last Update: 2/18/16
+ * 
+ */
+
 package assignment05;
 
 import java.util.ArrayList;
@@ -7,7 +15,7 @@ import java.util.Random;
 
 public class SortUtil {
 
-	public static int InsertionPoint = 7;
+	public static int InsertionPoint = 2500;
 	
 	/**
 	 * This method performs a mergesort on the generic ArrayList given as input.
@@ -32,11 +40,12 @@ public class SortUtil {
 	public static <T> void mergeSort(ArrayList<T> input, int leftValue, int rightValue, Comparator<? super T> cmp,
 			ArrayList<T> temp) {
 
+
 		if (leftValue <= InsertionPoint) {
 			insertionSort(input, cmp);
 			return;
 		}
-
+		
 		int middle = (leftValue + rightValue) / 2;
 
 		mergeSort(input, leftValue, middle, cmp, temp);
@@ -44,6 +53,13 @@ public class SortUtil {
 		merge(input, leftValue, middle, rightValue, cmp, temp);
 
 	}
+	
+	/*Merge method
+	 * 
+	 * sorts and merges the parts of the array list pased in, into the temporary arraylist passed in and 
+	 * then puts the sorted portion back into the original array.
+	 * 
+	 */
 
 	public static <T> void merge(ArrayList<T> input, int leftValue, int middle, int rightValue, Comparator<? super T> cmp, ArrayList<T> temp) {
 
@@ -70,12 +86,12 @@ public class SortUtil {
 		for (int j = 0; j < temp.size(); j++) {
 			input.set(i++, temp.get(j));
 		}
-		// temp.clear();
+		
 	}
 
 	/*
 	 * Insertion Sort
-	 * 
+	 * uses insertion sort to sort the passed in array using the passed in comparator
 	 * 
 	 * 
 	 */
@@ -112,13 +128,17 @@ public class SortUtil {
 
 	}
 
+	/* recusrive method for quicksort algorithm.
+	 * sets pivot, and compares and sorts items in the passed in array;
+	 * 
+	 */
 	public static <T> void quicksortRecursive(ArrayList<T> input, int left, int right, Comparator<? super T> cmp) {
 
 		int i = left;
 		int j = right;
 		T temp;
-		T pivot = input.get((left + right) / 2);
-
+		T pivot = input.get(pivotPickerMedian( left, right));
+		
 		while (i <= j) {
 
 			while (cmp.compare(input.get(i), pivot) < 0) {
@@ -180,7 +200,7 @@ public class SortUtil {
 	 */
 	public static ArrayList<Integer> generateAverageCase(int size) {
 		ArrayList<Integer> randomList = new ArrayList<>();
-		Random rand = new Random();
+		Random rand = new Random(100);
 		for (int i = size; i > 0; i--) {
 			randomList.add(rand.nextInt(size));
 		}
@@ -190,7 +210,6 @@ public class SortUtil {
 		return randomList;
 	}
 
-	
 
 	/**
 	 * This method generates and returns an ArrayList of integers 1 to size in
@@ -209,5 +228,25 @@ public class SortUtil {
 		
 		return worstCaseList;
 	}
+	
+/*Pivot picker method, picks pivot based on median value
+ * 	
+ */
+	public static int pivotPickerMedian(int left, int right) {
+		return (left + right) / 2;
 	}
-
+	/*Pivot Picker, picks leftmost value as pivot
+	 * 
+	 */
+	public static int pivotPickerFirst(int left) {
+		return left;
+	}
+	/*Pivot Picker, picks Right most value
+	 * 
+	 */
+	public static int pivotPickerLast(int last) { 
+		return last;
+	}
+	
+	
+	}

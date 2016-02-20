@@ -1,82 +1,314 @@
+/**
+ * Class to perform timing experiments of areAnagrams() and getLargestAnagramGroup()
+ * methods from the class AnagramUtil
+ * 
+ * @author Mohit Chaudhary, Moses Manning
+ * Last Modified: Feb. 18, 2016
+ */
 package assignment05;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 
-import assignment04.AnagramUtil;
 
-public class TimingTestForMergeSort implements Comparable{
-
-	private static final int ITER_COUNT = 1000;
-	private static Comparator cmp;
-
-	public static void main(String[] args) {
-		Random rand = new Random();
-		rand.setSeed(System.currentTimeMillis());
-		cmp = null;
-		// you spin me round baby, right round
+public class TimingTestForMergeSort {
+	
+	
+	private static Random rand;
+	private static final int ITER_COUNT = 100;
+	private static ArrayList<ArrayList> mergearr = new ArrayList<ArrayList>();
+	
+	
+	
+	
+	public static void mergeTimerAverage(){
 		long startTime = System.nanoTime();
+		ArrayList<Integer> intTest = new ArrayList<Integer>();
+		Comparator<Integer> cmp = intComparator(); 
+		
+		System.out.println();
 		while (System.nanoTime() - startTime < 1000000000);
-		for (int exp = 10; exp <= 25; exp++) { // This is used as the exponent
-												// to calculate the size of the
-												// set.
-			int size = (int) Math.pow(2, exp); // or ..
-			size = 1 << exp; // the two statements are equivalent, look into
-								// bit-shifting if you're interested what is
-								// going on here.
-
-			// Do the experiment multiple times, and average out the results
-			long totalTime = 0;
-			for (int iter = 0; iter < ITER_COUNT; iter++) {
-				// SET UP!
-
-				ArrayList<String> input = new ArrayList<>();
-				for (int i = 0; i < input.size(); i++) {
-					input.add(randomString(5));
+		
+		try(FileWriter fw = new FileWriter(new File("getLargestAnagramGroup_experiment.tsv"))) { //open up a file writer so we can write to file.
+			for(int exp = 1; exp < 20 ; exp++) { // This is used as the exponent to calculate the size of the set.
+				int size = (int) Math.pow(2, exp);
+				long totalTime = 0;
+				for (int iter = 0; iter < ITER_COUNT; iter++) {
+					// TIME IT!
+					//intTest = SortUtil.generateAverageCase(size);
+					long start = System.nanoTime();
+					SortUtil.mergesort(mergearr.get(exp), cmp);
+					long stop = System.nanoTime();
+					totalTime += stop - start;
 				}
-
-				// TIME IT!
-				long start = System.nanoTime();
-
-				for (int i = 0; i < input.size() - 1; i++) {
 				
+				double averageTime = totalTime / (double)ITER_COUNT;
+				System.out.println(exp + "\t" + averageTime); // print to console
+				fw.write(exp + "\t" + averageTime + "\n"); // write to file.
+				// Increase size of testing array
+				//intTest = SortUtil.generateAverageCase(exp);
 				
-				SortUtil.mergesort(input, cmp);
-				
-//					areAnagrams(anagramStrings.get(i), anagramStrings.get(i + 1));
-				}
-
-				long stop = System.nanoTime();
-				totalTime += stop - start;
 			}
-			double averageTime = totalTime / (double) ITER_COUNT;
-			System.out.println(size + "\t" + averageTime); // print to console
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
-	// Create a random string [a-z] of specified length
-	public static String randomString(int length) {
-		Random rand = new Random();
+	public static void mergeTimerBest(){
+		long startTime = System.nanoTime();
+		ArrayList<Integer> intTest = new ArrayList<Integer>();
+		Comparator<Integer> cmp = intComparator(); 
+		
+		System.out.println();
+		while (System.nanoTime() - startTime < 1000000000);
+		
+		try(FileWriter fw = new FileWriter(new File("getLargestAnagramGroup_experiment.tsv"))) { //open up a file writer so we can write to file.
+			for(int exp = 1; exp <= 25 ; exp++) { // This is used as the exponent to calculate the size of the set.
+				int size = (int) Math.pow(2, exp);
+				long totalTime = 0;
+				for (int iter = 0; iter < ITER_COUNT; iter++) {
+					// TIME IT!
+					intTest = SortUtil.generateBestCase(size);
+					long start = System.nanoTime();
+					SortUtil.mergesort(intTest, cmp);
+					long stop = System.nanoTime();
+					totalTime += stop - start;
+				}
+				
+				double averageTime = totalTime / (double)ITER_COUNT;
+				System.out.println(intTest.size() + "\t" + averageTime); // print to console
+				fw.write(intTest.size() + "\t" + averageTime + "\n"); // write to file.
+				// Increase size of testing array
+				intTest = SortUtil.generateBestCase(exp);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void mergeTimerWorst(){
+		long startTime = System.nanoTime();
+		ArrayList<Integer> intTest = new ArrayList<Integer>();
+		Comparator<Integer> cmp = intComparator(); 
+		
+		System.out.println();
+		while (System.nanoTime() - startTime < 1000000000);
+		
+		try(FileWriter fw = new FileWriter(new File("getLargestAnagramGroup_experiment.tsv"))) { //open up a file writer so we can write to file.
+			for(int exp = 1; exp <= 25 ; exp++) { // This is used as the exponent to calculate the size of the set.
+				int size = (int) Math.pow(2, exp);
+				long totalTime = 0;
+				for (int iter = 0; iter < ITER_COUNT; iter++) {
+					// TIME IT!
+					intTest = SortUtil.generateWorstCase(size);
+					long start = System.nanoTime();
+					SortUtil.mergesort(intTest, cmp);
+					long stop = System.nanoTime();
+					totalTime += stop - start;
+				}
+				
+				double averageTime = totalTime / (double)ITER_COUNT;
+				System.out.println(intTest.size() + "\t" + averageTime); // print to console
+				fw.write(intTest.size() + "\t" + averageTime + "\n"); // write to file.
+				// Increase size of testing array
+				intTest = SortUtil.generateWorstCase(exp);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void quicksortTimerAvg(){
+		long startTime = System.nanoTime();
+		ArrayList<Integer> intTest = new ArrayList<Integer>();
+		Comparator<Integer> cmp = intComparator(); 
+		
+		System.out.println();
+		while (System.nanoTime() - startTime < 1000000000);
+		
+		try(FileWriter fw = new FileWriter(new File("getLargestAnagramGroup_experiment.tsv"))) { //open up a file writer so we can write to file.
+			for(int exp = 1; exp < 22 ; exp++) { // This is used as the exponent to calculate the size of the set.
+				int size = (int) Math.pow(2, exp);
+				long totalTime = 0;
+				for (int iter = 0; iter < ITER_COUNT; iter++) {
+					// TIME IT!
+					//intTest = SortUtil.generateAverageCase(size);
+					long start = System.nanoTime();
+					SortUtil.quicksort(mergearr.get(exp), cmp);
+					long stop = System.nanoTime();
+					totalTime += stop - start;
+				}
+				
+				double averageTime = totalTime / (double)ITER_COUNT;
+				System.out.println(Math.pow(2, exp) + "\t" + averageTime); // print to console
+				fw.write(intTest.size() + "\t" + averageTime + "\n"); // write to file.
+				// Increase size of testing array
+				//intTest = SortUtil.generateAverageCase(exp);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void quicksortTimerBest(){
+		long startTime = System.nanoTime();
+		ArrayList<Integer> intTest = new ArrayList<Integer>();
+		Comparator<Integer> cmp = intComparator(); 
+		
+		System.out.println();
+		while (System.nanoTime() - startTime < 1000000000);
+		
+		try(FileWriter fw = new FileWriter(new File("getLargestAnagramGroup_experiment.tsv"))) { //open up a file writer so we can write to file.
+			for(int exp = 1; exp <= 25 ; exp++) { // This is used as the exponent to calculate the size of the set.
+				int size = (int) Math.pow(2, exp);
+				long totalTime = 0;
+				for (int iter = 0; iter < ITER_COUNT; iter++) {
+					// TIME IT!
+					intTest = SortUtil.generateBestCase(size);
+					long start = System.nanoTime();
+					SortUtil.quicksort(intTest, cmp);
+					long stop = System.nanoTime();
+					totalTime += stop - start;
+				}
+				
+				double averageTime = totalTime / (double)ITER_COUNT;
+				System.out.println(intTest.size() + "\t" + averageTime); // print to console
+				fw.write(intTest.size() + "\t" + averageTime + "\n"); // write to file.
+				// Increase size of testing array
+				intTest = SortUtil.generateBestCase(exp);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void quicksortTimerWorst(){
+		long startTime = System.nanoTime();
+		ArrayList<Integer> intTest = new ArrayList<Integer>();
+		Comparator<Integer> cmp = intComparator(); 
+		
+		System.out.println();
+		while (System.nanoTime() - startTime < 1000000000);
+		
+		try(FileWriter fw = new FileWriter(new File("getLargestAnagramGroup_experiment.tsv"))) { //open up a file writer so we can write to file.
+			for(int exp = 1; exp <= 25 ; exp++) { // This is used as the exponent to calculate the size of the set.
+				int size = (int) Math.pow(2, exp);
+				long totalTime = 0;
+				for (int iter = 0; iter < ITER_COUNT; iter++) {
+					// TIME IT!
+					intTest = SortUtil.generateWorstCase(size);
+					long start = System.nanoTime();
+					SortUtil.quicksort(intTest, cmp);
+					long stop = System.nanoTime();
+					totalTime += stop - start;
+				}
+				
+				double averageTime = totalTime / (double)ITER_COUNT;
+				System.out.println(intTest.size() + "\t" + averageTime); // print to console
+				fw.write(intTest.size() + "\t" + averageTime + "\n"); // write to file.
+				// Increase size of testing array
+				intTest = SortUtil.generateWorstCase(exp);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void mergeNoInsert(){
+		long startTime = System.nanoTime();
+		ArrayList<Integer> intTest = new ArrayList<Integer>();
+		Comparator<Integer> cmp = intComparator(); 
+		
+		System.out.println();
+		while (System.nanoTime() - startTime < 1000000000);
+		
+		try(FileWriter fw = new FileWriter(new File("getLargestAnagramGroup_experiment.tsv"))) { //open up a file writer so we can write to file.
+			for(int exp = 1; exp <= 25 ; exp++) { // This is used as the exponent to calculate the size of the set.
+				int size = (int) Math.pow(2, exp);
+				long totalTime = 0;
+				for (int iter = 0; iter < ITER_COUNT; iter++) {
+					// TIME IT!
+					intTest = SortUtil.generateAverageCase(size);
+					long start = System.nanoTime();
+					SortUtil.mergesort(intTest, cmp);
+					long stop = System.nanoTime();
+					totalTime += stop - start;
+				}
+				
+				double averageTime = totalTime / (double)ITER_COUNT;
+				System.out.println(intTest.size() + "\t" + averageTime); // print to console
+				fw.write(intTest.size() + "\t" + averageTime + "\n"); // write to file.
+				// Increase size of testing array
+				intTest = SortUtil.generateAverageCase(exp);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	public static void setArr() {
+		for(int i = 1 ; i <= 22; i++) {
+			mergearr.add(SortUtil.generateAverageCase((int) Math.pow(2, i)));
+		}
+	}
+	
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		// Set up the random number generator for the randomString function
+		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
-
-		String retval = "";
-		for (int i = 0; i < length; i++) {
-			// ASCII values a-z,A-Z are contiguous (52 characters)
-			retval += (char) ('a' + (rand.nextInt(26)));
+		setArr();
+		//setting up a constant permuted arrayList filled with Random arraylists
+		
+		
+		mergeTimerAverage();
+		mergeTimerWorst();
+		mergeTimerBest();
+		mergeTimerAverage();
+		quicksortTimerAvg();
+		quicksortTimerWorst();
+		mergeNoInsert();
+		
+	
+		
+	}
+	
+	protected static Comparator<Integer> intComparator() {
+		TimingTestForMergeSort g = new TimingTestForMergeSort();
+		Comparator<Integer> s = g.new intComparator();
+		return s;
+	}
+		
+	protected class intComparator implements Comparator<Integer> {
+		
+		@Override
+		public int compare(Integer o1, Integer o2) {
+			if(o1 > o2) return 1;
+			if(o1 < o2) return -1;
+			return 0;
 		}
-		return retval;
 	}
-
-	@Override
-	public int compareTo(Object o) {
-		int rightValue;
-		int leftValue;
-		ArrayList input;
-		ArrayList temp;
-		if (SortUtil.mergeSort(input, leftValue, rightValue, cmp, temp));
-			return 1;
-		else
-			return -1;
-	}
+	
 }
+
+
